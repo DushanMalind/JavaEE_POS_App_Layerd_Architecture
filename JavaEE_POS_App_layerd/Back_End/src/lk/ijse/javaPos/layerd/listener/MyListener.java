@@ -5,13 +5,17 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
  * @authority DUSHAN MALINDA
  */
+
+@WebListener
 public class MyListener implements ServletContextListener {
+
 
     public static Connection connection;
 
@@ -28,12 +32,6 @@ public class MyListener implements ServletContextListener {
         pool.setPassword("1234");
         pool.setInitialSize(10);
         pool.setMaxTotal(10);
-
-        try {
-             connection=pool.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         servletContext.setAttribute("dbcp", pool);
 

@@ -3,6 +3,7 @@ package lk.ijse.javaPos.layerd.dao.custom.impl;
 import lk.ijse.javaPos.layerd.dao.custom.OrdersDetailsDAO;
 import lk.ijse.javaPos.layerd.entity.OrderDetails;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 public class OrderDetailsDAOImpl implements OrdersDetailsDAO {
     @Override
-    public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<OrderDetails> getAll(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 

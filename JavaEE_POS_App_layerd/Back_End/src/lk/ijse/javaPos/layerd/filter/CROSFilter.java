@@ -18,6 +18,8 @@ public class CROSFilter implements Filter {
         System.out.println("CROS Filter Invoked");
     }
 
+
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse res= (HttpServletResponse) servletResponse;
@@ -27,16 +29,18 @@ public class CROSFilter implements Filter {
 
         String method=req.getMethod();
 
-        filterChain.doFilter(servletRequest,servletResponse);
+        //filterChain.doFilter(servletRequest,servletResponse);
 
         if (method.equals("OPTIONS")){
-            res.setStatus(200);
+            //res.setStatus(200);
             res.addHeader("Access-Control-Allow-Origin","*");
             res.addHeader("Access-Control-Allow-Methods","PUT, DELETE");
             res.addHeader("Access-Control-Allow-Headers","content-type,auth");
+            filterChain.doFilter(servletRequest,servletResponse);
         }else {
             res.addHeader("Access-Control-Allow-Origin","*");
             res.addHeader("Content-Type","application/json");
+            filterChain.doFilter(servletRequest,servletResponse);
         }
     }
 

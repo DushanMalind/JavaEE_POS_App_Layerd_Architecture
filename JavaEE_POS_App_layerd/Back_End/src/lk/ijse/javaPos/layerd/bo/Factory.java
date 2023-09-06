@@ -12,7 +12,7 @@ public class Factory {
     private Factory(){
     }
 
-    public static Factory getInstance(){
+    public static Factory getFactory(){
         if (factory==null){
             factory=new Factory();
         }

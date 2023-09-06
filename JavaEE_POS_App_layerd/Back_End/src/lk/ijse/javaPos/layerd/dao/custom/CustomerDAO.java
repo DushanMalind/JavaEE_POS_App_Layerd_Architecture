@@ -4,6 +4,8 @@ import lk.ijse.javaPos.layerd.dao.CrudDAO;
 import lk.ijse.javaPos.layerd.dao.SuperDAO;
 import lk.ijse.javaPos.layerd.entity.Customer;
 
+import java.sql.Connection;
+
 /**
  * @authority DUSHAN MALINDA
  */

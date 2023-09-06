@@ -20,18 +20,20 @@ public class AuthFilter implements Filter {
         System.out.println("Auth Filter Invoked");
     }
 
+
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletResponse res= (HttpServletResponse) servletResponse;
-        HttpServletRequest req= (HttpServletRequest) servletRequest;
+        HttpServletResponse res = (HttpServletResponse) servletResponse;
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
 
         System.out.println("Auth Filter Do Filter Invoked");
 
         String auth = req.getHeader("Auth");
 
-        if (req.getMethod().equals("OPTIONS")){
-            filterChain.doFilter(servletRequest,servletResponse);
-        }else {
+        if (req.getMethod().equals("OPTIONS")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
             if (auth != null && auth.equals("user=admin,pass=admin")) {
                 //forward the request to the requested servlet
                 filterChain.doFilter(servletRequest, servletResponse);
@@ -43,11 +45,15 @@ public class AuthFilter implements Filter {
                 JsonObject jsonObject = ResponseUtil.getJson("Auth-Error", "You are not Authenticated to use this Service.!");
                 res.getWriter().print(jsonObject);
             }
+            //}
+
         }
+
+
     }
 
     @Override
     public void destroy() {
-
+        System.out.println("Auth Filter Destroyed");
     }
 }

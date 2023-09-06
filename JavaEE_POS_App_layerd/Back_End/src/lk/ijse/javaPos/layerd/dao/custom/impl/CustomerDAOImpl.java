@@ -17,10 +17,12 @@ import java.util.ArrayList;
 public class CustomerDAOImpl implements CustomerDAO {
 
 
+
     @Override
-    public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException {
         ArrayList<Customer> allCustomers = new ArrayList<>();
-        ResultSet rst = MyListener.connection.prepareStatement("SELECT * FROM Customer").executeQuery();
+        //ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM customer");
+        ResultSet rst=connection.createStatement().executeQuery("SELECT * FROM customer");
        /* while (rst.next()) {
             allCustomers.add(new Customer(rst.getString(1),
                     rst.getString(2),
@@ -29,10 +31,14 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return allCustomers;*/
         while (rst.next()){
-            Customer customer=new Customer(rst.getString("cusId"),rst.getString("name"),
+            Customer customer=new Customer(rst.getString("id"),rst.getString("name"),
                     rst.getString("address"),rst.getString("contact"));
             allCustomers.add(customer);
         }
+
+
+        System.out.println("DAO"+allCustomers);
+
         return allCustomers;
     }
 

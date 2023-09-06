@@ -6,6 +6,7 @@ import lk.ijse.javaPos.layerd.dao.custom.CustomerDAO;
 import lk.ijse.javaPos.layerd.entity.Customer;
 import lk.ijse.javaPos.layerd.model.CustomerDTO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -18,12 +19,15 @@ public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDao(DAOFactory.DAOTypes.CUSTOMER);
 
     @Override
-    public ArrayList<CustomerDTO> gelAllCustomer() throws SQLException, ClassNotFoundException {
+    public ArrayList<CustomerDTO> gelAllCustomer(Connection connection) throws SQLException, ClassNotFoundException {
         ArrayList<CustomerDTO> allCustomer = new ArrayList<>();
-        ArrayList<Customer> allEntity = customerDAO.getAll();
+
+        ArrayList<Customer> allEntity = customerDAO.getAll(connection);
+        //System.out.println("DAO"+allEntity);
         for (Customer c:allEntity){
             allCustomer.add(new CustomerDTO(c.getCusId(),c.getName(),c.getAddress(),c.getContact()));
         }
+        //System.out.println("BO"+allCustomer);
         return allCustomer;
     }
 

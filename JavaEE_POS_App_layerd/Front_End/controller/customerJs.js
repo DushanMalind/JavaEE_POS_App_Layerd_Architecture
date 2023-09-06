@@ -1,3 +1,4 @@
+/*
 initiateUI();
 
 function initiateUI() {
@@ -73,6 +74,12 @@ $("#placeOrders").click(function () {
 const BASE_URL = "http://localhost:8081/java_pos/";
 
 getAllCustomer();
+
+$("#btnDelete").click(function (){
+  getAllCustomer();
+  alert("ok");
+});
+
 function getAllCustomer(){
   $("#tblCustomer").empty();
   $.ajax({
@@ -128,3 +135,4 @@ function setFiledSet(id,name,address,salary){
 
 
 
+*/
