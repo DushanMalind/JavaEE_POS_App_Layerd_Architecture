@@ -70,6 +70,51 @@ $("#placeOrders").click(function () {
 });
 
 
+const BASE_URL = "http://localhost:8081/java_pos/";
+
+getAllCustomer();
+function getAllCustomer(){
+  $("#tblCustomer").empty();
+  $.ajax({
+    url:BASE_URL+"customer",
+    method:"GET",
+    headers:{
+      Auth:"user=admin,pass=admin"
+    },
+    success:function (resp){
+      let customers = resp.data;
+      for(let i in customers){
+        let cus = customers[i];
+        let id = cus.id;
+        let name = cus.name;
+        let address = cus.address;
+        let salary = cus.salary;
+        let row = `<tr><td>${id}</td><td>${name}</td><td>${address}</td><td>${salary}</td></tr>`;
+        $("#tblCustomer").append(row);
+      }
+    }
+  });
+}
+
+$("#tblCustomer").on('click',function (event){
+  let tr= $(event.target).closest("tr");
+
+  let id = tr.find("td:eq(0)").text();
+  let name = tr.find("td:eq(1)").text();
+  let address = tr.find("td:eq(2)").text();
+  let salary = tr.find("td:eq(3)").text();
+
+  setFiledSet(id,name,address,salary);
+  console.log(id,name,address,salary);
+});
+
+function setFiledSet(id,name,address,salary){
+  $("#txtID").val(id);
+  $("#txtName").val(name);
+  $("#txtAddress").val(address);
+  $("#txtSalary").val(salary);
+}
+
 
 
 

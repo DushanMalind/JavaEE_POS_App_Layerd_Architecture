@@ -8,7 +8,7 @@ import javax.json.JsonObjectBuilder;
  * @authority DUSHAN MALINDA
  */
 public class ResponseUtil {
-    public static JsonObject genJson(String state, String message, JsonObject...data){
+    public static JsonObject getJson(String state, String message, JsonObject...data){
         JsonObjectBuilder object = Json.createObjectBuilder();
         object.add("state",state);
         object.add("message",message);

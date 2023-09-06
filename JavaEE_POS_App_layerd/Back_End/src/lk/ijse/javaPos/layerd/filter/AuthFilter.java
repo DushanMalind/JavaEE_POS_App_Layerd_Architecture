@@ -40,7 +40,7 @@ public class AuthFilter implements Filter {
                 //to access the service
                 res.addHeader("Content-Type", "application/json");
                 res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                JsonObject jsonObject = ResponseUtil.genJson("Auth-Error", "You are not Authenticated to use this Service.!");
+                JsonObject jsonObject = ResponseUtil.getJson("Auth-Error", "You are not Authenticated to use this Service.!");
                 res.getWriter().print(jsonObject);
             }
         }

@@ -21,11 +21,17 @@ public class CustomerDAOImpl implements CustomerDAO {
     public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
         ArrayList<Customer> allCustomers = new ArrayList<>();
         ResultSet rst = MyListener.connection.prepareStatement("SELECT * FROM Customer").executeQuery();
-        while (rst.next()) {
+       /* while (rst.next()) {
             allCustomers.add(new Customer(rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
                     rst.getString(4)));
+        }
+        return allCustomers;*/
+        while (rst.next()){
+            Customer customer=new Customer(rst.getString("cusId"),rst.getString("name"),
+                    rst.getString("address"),rst.getString("contact"));
+            allCustomers.add(customer);
         }
         return allCustomers;
     }
