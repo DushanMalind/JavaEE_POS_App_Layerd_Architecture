@@ -32,27 +32,27 @@ public class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
-    public boolean addCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean addCustomer(CustomerDTO dto,Connection connection) throws SQLException, ClassNotFoundException {
+        return customerDAO.add(new Customer(dto.getCusId(),dto.getName(),dto.getAddress(),dto.getContact()),connection);
+    }
+
+    @Override
+    public boolean updateCustomer(CustomerDTO dto,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean existCustomer(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
+    public boolean deleteCustomer(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public String genaRateNewId() throws SQLException, ClassNotFoundException {
+    public String genaRateNewId(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 }

@@ -17,32 +17,32 @@ public class OrderDetailsDAOImpl implements OrdersDetailsDAO {
     }
 
     @Override
-    public boolean add(OrderDetails dto) throws SQLException, ClassNotFoundException {
+    public boolean add(OrderDetails dto,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(OrderDetails dto) throws SQLException, ClassNotFoundException {
+    public boolean update(OrderDetails dto,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+    public boolean exist(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
+    public String generateNewID(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public OrderDetails search(String id) throws SQLException, ClassNotFoundException {
+    public OrderDetails search(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 }

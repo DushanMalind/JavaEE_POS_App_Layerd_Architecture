@@ -69,5 +69,29 @@ public class CustomerServletAPI extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+try {
+            BasicDataSource pool = (BasicDataSource) getServletContext().getAttribute("dbcp");
+            Connection connection = pool.getConnection();
 
+            String id = req.getParameter("cusId");
+            String name = req.getParameter("cusName");
+            String address = req.getParameter("cusAddress");
+            String contact = req.getParameter("contact");
+
+            customerBO.addCustomer(new CustomerDTO(id,name,address,contact),connection);
+
+            resp.getWriter().print(ResponseUtil.getJson("Success", "Customer Added"));
+
+            connection.close();
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
+        } catch (ClassNotFoundException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
+            //  throw new RuntimeException(e);
+        }
+    }
 }

@@ -108,7 +108,7 @@
                 <section class="container col border-dark m-4 border rounded object-fit-contain  me-auto ms-20 mb-10">
 
                     <h5 class="text-danger text-center m-lg-3 pb-3" >Customer Details</h5>
-                  <div class="col-12 col-lg-12 mt-3 ">
+                  <div class="col-12 col-lg-12 mt-3 c">
                     <table class="table table-light table-striped" id="tables">
                         <thead>
                         <tr>
@@ -567,7 +567,7 @@
   });
 
 
-  const BASE_URL = "http://localhost:8080/java_pos/";
+  const BASE_URL = "http://localhost:8081/java_pos/";
 
 
 /*  $("#btnDelete").click(function (){
@@ -657,6 +657,36 @@ getAllCustomer();
     $("#txtCustomerContact").val(salary);
   }
 
+
+$("#save").click(function (){
+  let formData=$("#customerFrom").serialize();
+  console.log(formData);
+
+  $.ajax({
+    url:BASE_URL+"test",
+    method: "POST",
+    data:formData,
+    headers:{
+      Auth:"user=admin,pass=admin"
+    },
+    success:function (res){
+      alert("Customer Saved");
+      getAllCustomer();
+      clearAll();
+    },error:function (error){
+      console.log(error);
+      alert(error.responseJSON.message);
+    }
+
+  });
+});
+
+  function clearAll(){
+    $("#txtCustomerID").val("");
+    $("#txtCustomerName").val("");
+    $("#txtCustomerAddress").val("");
+    $("#txtCustomerContact").val("");
+  }
 
 
 

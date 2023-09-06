@@ -17,32 +17,32 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean add(Item dto) throws SQLException, ClassNotFoundException {
+    public boolean add(Item dto,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(Item dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Item dto,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+    public boolean exist(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
+    public String generateNewID(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public Item search(String id) throws SQLException, ClassNotFoundException {
+    public Item search(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 }

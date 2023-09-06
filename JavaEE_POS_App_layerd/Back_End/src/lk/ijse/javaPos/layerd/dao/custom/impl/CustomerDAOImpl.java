@@ -43,32 +43,32 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean add(Customer dto) throws SQLException, ClassNotFoundException {
+    public boolean add(Customer dto,Connection connection) throws SQLException, ClassNotFoundException {
+        return connection.createStatement().executeUpdate("INSERT INTO customer VALUES ('"+dto.getCusId()+"','"+dto.getName()+"','"+dto.getAddress()+"','"+dto.getContact()+"')")>0;
+    }
+
+    @Override
+    public boolean update(Customer dto,Connection connection) throws SQLException, ClassNotFoundException {
+        return connection.createStatement().executeUpdate("UPDATE customer SET name='"+dto.getName()+"',address='"+dto.getAddress()+"',contact='"+dto.getContact()+"' WHERE id='"+dto.getCusId()+"'")>0;
+    }
+
+    @Override
+    public boolean exist(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(Customer dto) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
+    public String generateNewID(Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 
     @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public Customer search(String id) throws SQLException, ClassNotFoundException {
+    public Customer search(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
 }
