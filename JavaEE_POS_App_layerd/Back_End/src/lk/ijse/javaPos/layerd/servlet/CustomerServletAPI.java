@@ -42,7 +42,7 @@ public class CustomerServletAPI extends HttpServlet {
            // customerBO.gelAllCustomer(connection);
             ArrayList<CustomerDTO> allCustomer = customerBO.gelAllCustomer(connection);
             JsonArrayBuilder allCustomers = Json.createArrayBuilder();
-            System.out.println("API");
+            //System.out.println("API");
             //System.out.println("API"+allCustomer);
             for (CustomerDTO c : allCustomer) {
                 JsonObjectBuilder customerObject = Json.createObjectBuilder();

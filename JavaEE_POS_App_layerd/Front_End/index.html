@@ -754,11 +754,93 @@ $("#btnDelete").click(function (){
 });
 
 
+/*-------------------------------------------------------------*/
+
+
+  getAllItems();
+  function getAllItems(){
+    $("#tblItem").empty();
+
+    $.ajax({
+      url:BASE_URL+"item",
+      method:"GET",
+      headers:{
+        Auth:"user=admin,pass=admin"
+      },
+
+      success:function (res){
+        let items=res.data;
+        for (let i = 0; i < items.length; i++) {
+          let id = items[i].id;
+          let description = items[i].description;
+          let unitPrice = items[i].unitPrice;
+          let qty = items[i].qty;
+
+          let row = `<tr><td>${id}</td><td>${description}</td><td>${unitPrice}</td><td>${qty}</td></tr>`;
+          $("#tblItem").append(row);
+        }
+
+      },error:function (error){
+        console.log(error);
+        alert(error.responseJSON.message);
+      }
+
+    });
+  }
+
+  $("#tblItem").on('click',function (){
+    let tr= $(event.target).closest("tr");
+
+    let id = tr.find("td:eq(0)").text();
+    let description = tr.find("td:eq(1)").text();
+    let unitPrice = tr.find("td:eq(2)").text();
+    let qty = tr.find("td:eq(3)").text();
+
+    setFiledSetItem(id,description,unitPrice,qty);
+    // console.log(id,description,unitPrice,qty);
+  });
+
+  function setFiledSetItem(id,description,unitPrice,qty){
+    $("#txtItemId").val(id);
+    $("#txtItemDescription").val(description);
+    $("#txtItemUnitprice").val(unitPrice);
+    $("#txtItemQty").val(qty);
+  }
+
+  function clearAllItem(){
+    $("#txtItemId").val("");
+    $("#txtItemDescription").val("");
+    $("#txtItemUnitprice").val("");
+    $("#txtItemQty").val("");
+  }
 
 
 
 
+  $("#btnItemSave").click(function (){
+    let formDataItem=$("#ItemFromData").serialize();
+    console.log(formDataItem);
 
+    $.ajax({
+      url:BASE_URL+"item",
+      method: "POST",
+      data:formDataItem,
+      headers:{
+        Auth:"user=admin,pass=admin"
+      },
+
+      success:function (resp){
+        getAllItems();
+        clearAllItem();
+        alert(resp.message);
+
+      },error:function (error){
+        console.log(error);
+        alert(error.responseJSON.message);
+      }
+
+    });
+  });
 
 
 </script>

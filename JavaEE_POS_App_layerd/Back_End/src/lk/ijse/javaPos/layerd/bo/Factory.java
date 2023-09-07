@@ -1,6 +1,7 @@
 package lk.ijse.javaPos.layerd.bo;
 
 import lk.ijse.javaPos.layerd.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.javaPos.layerd.bo.custom.impl.ItemBOImpl;
 
 /**
  * @authority DUSHAN MALINDA
@@ -27,9 +28,9 @@ public class Factory {
         switch (boType){
             case CUSTOMER:
                 return new CustomerBOImpl();
-           /* case ITEM:
+            case ITEM:
                 return new ItemBOImpl();
-            case ORDERS:
+          /*  case ORDERS:
                 return new OrdersBOImpl();
             case ORDERDETAILS:
                 return new OrderDetailsBOImpl();*/

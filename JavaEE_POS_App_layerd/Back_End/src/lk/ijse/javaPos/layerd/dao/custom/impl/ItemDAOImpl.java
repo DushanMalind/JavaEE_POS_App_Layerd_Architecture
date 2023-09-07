@@ -4,6 +4,7 @@ import lk.ijse.javaPos.layerd.dao.custom.ItemDAO;
 import lk.ijse.javaPos.layerd.entity.Item;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,12 +14,20 @@ import java.util.ArrayList;
 public class ItemDAOImpl implements ItemDAO {
     @Override
     public ArrayList<Item> getAll(Connection connection) throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<Item> allItem=new ArrayList<>();
+        ResultSet rst=connection.createStatement().executeQuery("SELECT * FROM items");
+
+        while (rst.next()){
+            Item item=new Item(rst.getString("id"),rst.getString("description"),
+                    rst.getDouble("unitPrice"),rst.getInt("qty"));
+            allItem.add(item);
+        }
+        return allItem;
     }
 
     @Override
     public boolean add(Item dto,Connection connection) throws SQLException, ClassNotFoundException {
-        return false;
+        return connection.createStatement().executeUpdate("INSERT INTO items VALUES ('"+dto.getItemId()+"','"+dto.getDescription()+"','"+dto.getQtyOnHand()+"','"+dto.getUnitPrice()+"')")>0;
     }
 
     @Override
