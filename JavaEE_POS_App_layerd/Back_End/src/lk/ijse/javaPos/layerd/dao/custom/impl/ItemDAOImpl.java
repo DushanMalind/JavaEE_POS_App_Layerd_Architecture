@@ -32,7 +32,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean update(Item dto,Connection connection) throws SQLException, ClassNotFoundException {
-        return false;
+        return connection.createStatement().executeUpdate("UPDATE items SET description='"+dto.getDescription()+"',qty='"+dto.getQtyOnHand()+"',unitPrice='"+dto.getUnitPrice()+"' WHERE id='"+dto.getItemId()+"'")>0;
     }
 
     @Override

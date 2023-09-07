@@ -182,7 +182,7 @@
 
 
                             <button id="btnItemSave" type="button" style="width: 150px" class="btn btn-warning m-auto m-lg-2 justify-content-center" >Save</button>
-                            <button id="btnItemUpdate" type="button" style="width: 150px" class="btn btn-info m-auto m-lg-2" disabled>Update</button>
+                            <button id="btnItemUpdate" type="button" style="width: 150px" class="btn btn-info m-auto m-lg-2" >Update</button>
                             <button id="btnItemDelete" type="button" style="width: 150px" class="btn btn-dark m-auto m-lg-2">Delete</button>
                             <button id="btnClearItem" type="button" style="width: 150px" class="btn btn-danger m-auto m-lg-2">Clear</button>
                         </form>
@@ -842,6 +842,41 @@ $("#btnDelete").click(function (){
     });
   });
 
+
+  $("#btnItemUpdate").click(function (){
+    let id=$("#txtItemId").val();
+    let description=$("#txtItemDescription").val();
+    let unitPrice=$("#txtItemUnitprice").val();
+    let qty=$("#txtItemQty").val();
+
+    let itemData={
+      code:id,
+      description:description,
+      unitPrice:unitPrice,
+      qty:qty
+    };
+
+    $.ajax({
+      url:BASE_URL+"item",
+      method:"PUT",
+      data:JSON.stringify(itemData),
+      contentType:"application/json",
+      headers:{
+        Auth:"user=admin,pass=admin"
+      },
+
+      success:function (res){
+        alert(res.message);
+        getAllItems();
+        clearAllItem();
+
+      },error:function (error){
+        console.log(error);
+        alert(error.responseJSON.message);
+      }
+    });
+
+  });
 
 </script>
 </body>
