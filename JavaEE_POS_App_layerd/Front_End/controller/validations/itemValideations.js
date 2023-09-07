@@ -4,7 +4,7 @@
 
 let itemValideaction = [];
 
-const itmIDRegEx = /^(I00-)[0-9]{1,3}$/;
+const itmIDRegEx = /^(I0-)[0-9]{1,3}$/;
 const itemDescRegEx = /^[A-z ]{5,20}$/;
 const itemUnitRegEx = /^[0-9]{1,}[.]?[0-9]{1,2}$/;
 const itemQTYtRegEx = /^[0-9]{1,7}$/;
@@ -13,7 +13,7 @@ $("#txtCustomerID").focus();
 
 
 
-itemValideaction.push({reg: itmIDRegEx, field: $('#txtItemId'), error: 'Item ID Pattern is Wrong : I00-001'});
+itemValideaction.push({reg: itmIDRegEx, field: $('#txtItemId'), error: 'Item ID Pattern is Wrong : I0-001'});
 itemValideaction.push({
     reg: itemDescRegEx,
     field: $('#txtItemDescription'),
@@ -63,7 +63,7 @@ $("#txtItemId,#txtItemDescription,#txtItemUnitprice,#txtItemQty").on("keydown ke
             }
         } else {
             if (checkValidations(itemValideaction[indexNo])) {
-                itemSave();
+                $("#btnItemSave").focus();
             }
         }
     }

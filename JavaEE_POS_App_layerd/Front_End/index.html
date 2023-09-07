@@ -489,7 +489,7 @@
 <script src="assets/js/jquery-3.7.0.min.js"></script>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 <script src="controller/validations/customervalidations.js"></script>
-<!--<script src="controller/validations/itemValideations.js"></script>-->
+<script src="controller/validations/itemValideations.js"></script>
 <!--<script src="controller/customerJs.js"></script>-->
 <!--<script src="controller/ItemJs.js"></script>-->
 <!--<script src="controller/ordersjs.js"></script>-->
@@ -865,6 +865,30 @@ $("#btnDelete").click(function (){
         Auth:"user=admin,pass=admin"
       },
 
+      success:function (res){
+        alert(res.message);
+        getAllItems();
+        clearAllItem();
+
+      },error:function (error){
+        console.log(error);
+        alert(error.responseJSON.message);
+      }
+    });
+
+  });
+
+
+  $("#btnItemDelete").click(function (){
+    let formDataItem=$("#ItemFromData").serialize();
+    let id=$("#txtItemId").val();
+    $.ajax({
+      url:BASE_URL+"item?code=" + id,
+      method:"DELETE",
+      data:formDataItem,
+      headers:{
+        Auth:"user=admin,pass=admin"
+      },
       success:function (res){
         alert(res.message);
         getAllItems();

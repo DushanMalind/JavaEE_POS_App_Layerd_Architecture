@@ -111,4 +111,27 @@ public class ItemServletAPI extends HttpServlet {
             resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try{
+            BasicDataSource pool= (BasicDataSource) getServletContext().getAttribute("dbcp");
+            Connection connection=pool.getConnection();
+
+            String code=req.getParameter("code");
+
+            itemBO.deleteItem(code,connection);
+
+            resp.getWriter().print(ResponseUtil.getJson("Success","Item Deleted"));
+
+            connection.close();
+
+        }catch (ClassNotFoundException e){
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.getJson("Error", "Something went wrong"));
+        } catch (SQLException e) {
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
+        }
+    }
 }

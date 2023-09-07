@@ -15,7 +15,7 @@ $("#txtCustomerID").focus();
 customerValideaction.push({
     reg: cusIDRegEx,
     field: $('#txtCustomerID'),
-    error: 'Customer ID Pattern is Wrong : C00-001'
+    error: 'Customer ID Pattern is Wrong : C0-001'
 });
 customerValideaction.push({
     reg: cusNameRegEx,
