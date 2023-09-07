@@ -116,4 +116,25 @@ try {
             resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            BasicDataSource pool = (BasicDataSource) getServletContext().getAttribute("dbcp");
+            Connection connection = pool.getConnection();
+
+            String id = req.getParameter("cusId");
+
+            customerBO.deleteCustomer(id,connection);
+
+            resp.getWriter().print(ResponseUtil.getJson("Success", "Customer Deleted"));
+
+            connection.close();
+
+        }catch (ClassNotFoundException | SQLException e){
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
+
+        }
+    }
 }

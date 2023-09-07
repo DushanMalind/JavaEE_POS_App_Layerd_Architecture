@@ -726,7 +726,28 @@ $("#btnUpdate").click(function (){
 });
 
 
+$("#btnDelete").click(function (){
+  let formData=$("#customerFrom").serialize();
+  let id=$("#txtCustomerID").val();
+  $.ajax({
+    url:BASE_URL+"test?cusId=" + id,
+    method:"DELETE",
+    data:formData,
+    headers:{
+      Auth:"user=admin,pass=admin"
+    },
+    success:function (res){
+      alert(res.message);
+      getAllCustomer();
+      clearAll();
 
+    },error:function (error){
+      console.log(error);
+      alert(error.responseJSON.message);
+    }
+  });
+
+});
 
 
 
