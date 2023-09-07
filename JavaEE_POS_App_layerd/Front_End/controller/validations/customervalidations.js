@@ -4,7 +4,7 @@
 
 let customerValideaction = [];
 
-const cusIDRegEx = /^(C00-)[0-9]{1,3}$/;
+const cusIDRegEx = /^(C0-)[0-9]{1,3}$/;
 const cusNameRegEx = /^[A-z ]{5,20}$/;
 const cusAddressRegEx = /^[0-9/A-z. ,]{7,}$/;
 const cusContactRegEx = /^[0-9]{1,}[.]?[0-9]{1,2}$/;
@@ -58,9 +58,9 @@ $("#txtCustomerID,#txtCustomerName,#txtCustomerAddress,#txtCustomerContact").on(
 
     setBtn();
 
-
+  //$("#txtCustomerID").val(generateNewId());
     if (e.key == "Enter") {
-        $("#txtCustomerID").val(generateNewId());
+        $("#txtCustomerID").val();
         if (e.target.id != customerValideaction[customerValideaction.length - 1].field.attr("id")) {
             //check validation is ok
             if (checkValidations(customerValideaction[indexNo])) {
@@ -68,7 +68,7 @@ $("#txtCustomerID,#txtCustomerName,#txtCustomerAddress,#txtCustomerContact").on(
             }
         } else {
             if (checkValidations(customerValideaction[indexNo])) {
-                saveCustomer();
+                $("#save").focus();
             }
         }
     }

@@ -91,7 +91,7 @@
 
 
                             <button id="save" type="button" style="width: 150px" class="btn btn-warning m-auto m-lg-2 justify-content-center" >Save</button>
-                            <button id="btnUpdate" type="button" style="width: 150px" class="btn btn-info m-auto m-lg-2" >Update</button>
+                            <button id="btnUpdate" type="button" style="width: 150px" class="btn btn-info m-auto m-lg-2" disabled>Update</button>
                             <button id="btnDelete" type="button" style="width: 150px" class="btn btn-dark m-auto m-lg-2">Delete</button>
                             <button id="btnClear" type="button" style="width: 150px" class="btn btn-danger m-auto m-lg-2">Clear</button>
                         </form>
@@ -486,19 +486,20 @@
 </script>-->
 
 <script src="assets/js/bootstrap.js"></script>
-<script src="assets/js/jquery-3.6.1.min.js"></script>
-<!--<script src="controller/validations/customervalidations.js"></script>
-<script src="controller/validations/itemValideations.js"></script>-->
-<!--<script src="controller/customerJs.js"></script>-->
-<script src="controller/ItemJs.js"></script>
-<script src="controller/ordersjs.js"></script>
 <script src="assets/js/jquery-3.7.0.min.js"></script>
+<script src="assets/js/jquery-3.6.1.min.js"></script>
+<script src="controller/validations/customervalidations.js"></script>
+<!--<script src="controller/validations/itemValideations.js"></script>-->
+<!--<script src="controller/customerJs.js"></script>-->
+<!--<script src="controller/ItemJs.js"></script>-->
+<!--<script src="controller/ordersjs.js"></script>-->
+
 
 <script>
   initiateUI();
 
   function initiateUI() {
-    clearAll();
+    clearAllDash();
     $("#customerContent").css("display", "block");
 
     setTheLastView();
@@ -542,9 +543,12 @@
   }
 
 
+  function clearAllDash(){
+    $("#customerContent,#itemContent,#ordersContent,#placeOrdersContent").css("display", "none");
+  }
 
   function setView(viewOb) {
-    clearAll();
+    clearAllDash();
     viewOb.css("display", "block");
     saveLastView(viewOb.get(0).id);
     console.log(viewOb.get(0).id);
