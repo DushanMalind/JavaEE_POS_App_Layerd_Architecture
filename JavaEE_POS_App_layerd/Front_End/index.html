@@ -91,7 +91,7 @@
 
 
                             <button id="save" type="button" style="width: 150px" class="btn btn-warning m-auto m-lg-2 justify-content-center" >Save</button>
-                            <button id="btnUpdate" type="button" style="width: 150px" class="btn btn-info m-auto m-lg-2" disabled>Update</button>
+                            <button id="btnUpdate" type="button" style="width: 150px" class="btn btn-info m-auto m-lg-2" >Update</button>
                             <button id="btnDelete" type="button" style="width: 150px" class="btn btn-dark m-auto m-lg-2">Delete</button>
                             <button id="btnClear" type="button" style="width: 150px" class="btn btn-danger m-auto m-lg-2">Clear</button>
                         </form>
@@ -624,7 +624,7 @@ getAllCustomer();
           let address = customers[i].address;
           let contact = customers[i].contact;
 
-          console.log(id,name,address,contact);
+         // console.log(id,name,address,contact);
 
           let row = `<tr><td>${id}</td><td>${name}</td><td>${address}</td><td>${contact}</td></tr>`;
           $("#tblCus").append(row);
@@ -647,7 +647,7 @@ getAllCustomer();
     let salary = tr.find("td:eq(3)").text();
 
     setFiledSet(id,name,address,salary);
-    console.log(id,name,address,salary);
+   // console.log(id,name,address,salary);
   });
 
   function setFiledSet(id,name,address,salary){
@@ -689,6 +689,41 @@ $("#save").click(function (){
   }
 
 
+$("#btnUpdate").click(function (){
+
+  let id=$("#txtCustomerID").val();
+  let name=$("#txtCustomerName").val();
+  let address=$("#txtCustomerAddress").val();
+  let contact=$("#txtCustomerContact").val();
+
+  let cusData={
+    cusId:id,
+    cusName:name,
+    cusAddress:address,
+    contact:contact
+  };
+
+  $.ajax({
+    url:BASE_URL+"test",
+    method:"PUT",
+    data:JSON.stringify(cusData),
+    contentType:"application/json",
+    headers:{
+      Auth:"user=admin,pass=admin"
+    },
+
+    success:function (res){
+      alert(res.message);
+      getAllCustomer();
+      clearAll();
+
+    },error:function (error){
+      console.log(error);
+      alert(error.responseJSON.message);
+    }
+  });
+
+});
 
 
 

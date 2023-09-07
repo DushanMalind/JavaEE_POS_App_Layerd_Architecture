@@ -37,7 +37,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
 
 
-        System.out.println("DAO"+allCustomers);
+        //System.out.println("DAO"+allCustomers);
 
         return allCustomers;
     }

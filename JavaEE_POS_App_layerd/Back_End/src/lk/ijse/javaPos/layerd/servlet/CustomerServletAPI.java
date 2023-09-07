@@ -7,10 +7,7 @@ import lk.ijse.javaPos.layerd.model.CustomerDTO;
 import lk.ijse.javaPos.layerd.util.ResponseUtil;
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -92,6 +89,31 @@ try {
             resp.setStatus(500);
             resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
             //  throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            BasicDataSource pool = (BasicDataSource) getServletContext().getAttribute("dbcp");
+            Connection connection = pool.getConnection();
+
+            JsonReader reader = Json.createReader(req.getReader());
+            JsonObject jsonObject = reader.readObject();
+            String id = jsonObject.getString("cusId");
+            String name = jsonObject.getString("cusName");
+            String address = jsonObject.getString("cusAddress");
+            String contact = jsonObject.getString("contact");
+
+            customerBO.updateCustomer(new CustomerDTO(id,name,address,contact),connection);
+
+            resp.getWriter().print(ResponseUtil.getJson("Success", "Customer update"));
+
+            connection.close();
+
+        }catch (ClassNotFoundException | SQLException e){
+            resp.setStatus(500);
+            resp.getWriter().print(ResponseUtil.getJson("Error", e.getMessage()));
         }
     }
 }
