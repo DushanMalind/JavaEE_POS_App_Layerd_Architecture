@@ -4,6 +4,7 @@ import lk.ijse.javaPos.layerd.dao.custom.ItemDAO;
 import lk.ijse.javaPos.layerd.entity.Item;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -53,5 +54,22 @@ public class ItemDAOImpl implements ItemDAO {
     @Override
     public Item search(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return null;
+    }
+
+    @Override
+    public boolean UpdateQty(Item dto, Connection connection) throws SQLException, ClassNotFoundException {
+      //  return connection.createStatement().executeUpdate("UPDATE items SET qty=?'"+dto.getQtyOnHand()+"' WHERE id='"+dto.getItemId()+"'")>0;
+        try {
+            String updateQuery = "UPDATE items SET qty = ? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+            preparedStatement.setInt(1, dto.getQtyOnHand()); // Assuming qty is an integer
+            preparedStatement.setString(2, dto.getItemId()); // Assuming id is a string
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            // Handle any SQL exceptions here
+            e.printStackTrace(); // Add appropriate error handling
+            return false;
+        }
     }
 }

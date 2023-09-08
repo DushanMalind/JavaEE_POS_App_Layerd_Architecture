@@ -21,4 +21,6 @@ public interface CrudDAO <T>{
     boolean delete(String id,Connection connection) throws SQLException, ClassNotFoundException;
 
     T search(String id,Connection connection) throws SQLException, ClassNotFoundException;
+
+    boolean UpdateQty(T dto,Connection connection) throws SQLException, ClassNotFoundException;
 }

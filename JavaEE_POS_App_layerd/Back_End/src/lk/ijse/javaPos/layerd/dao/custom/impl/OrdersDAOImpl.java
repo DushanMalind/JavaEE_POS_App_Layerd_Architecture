@@ -18,7 +18,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 
     @Override
     public boolean add(Orders dto,Connection connection) throws SQLException, ClassNotFoundException {
-        return false;
+        return connection.createStatement().executeUpdate("INSERT INTO orders VALUES ('"+dto.getOrdId()+"','"+dto.getDate()+"','"+dto.getCusId()+"')")>0;
     }
 
     @Override
@@ -44,5 +44,10 @@ public class OrdersDAOImpl implements OrdersDAO {
     @Override
     public Orders search(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return null;
+    }
+
+    @Override
+    public boolean UpdateQty(Orders dto, Connection connection) throws SQLException, ClassNotFoundException {
+        return false;
     }
 }

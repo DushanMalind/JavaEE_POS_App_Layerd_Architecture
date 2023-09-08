@@ -1063,6 +1063,8 @@ searchItems();
     }
   })
 
+  let cartItemsRow=[];
+  //let orderDetails;
 
   $("#btnAddToCart").click(function (){
     let code=$("#orderItemCode").val();
@@ -1070,10 +1072,23 @@ searchItems();
     let unitPrice=$("#orderItemPrice").val();
     let qty=$("#txtQty").val();
 
+
+
     let total=unitPrice*qty;
+
+    let itemOB={
+      code:code,
+      description:description,
+      unitPrice:unitPrice,
+      qty:qty
+    }
+
+    cartItemsRow.push(itemOB);
 
     let row=`<tr><td>${code}</td><td>${description}</td><td>${unitPrice}</td><td>${qty}</td><td>${total}</td></tr>`;
     $("#tblCart").append(row);
+
+    //orderDetails.push(cartItemsRow);
 
     calculateTotal();
     clearAllCart();
@@ -1107,8 +1122,59 @@ searchItems();
   }
 
 
+  $("#purchaseOrder").click(function (){
+    let orderId=$("#orderId").val();
+    let date=$("#txtDate").val();
+    let customerId=$("#customerIdOrd").val();
+    let itemId=$("#orderItemCode").val();
+    let qty=$("#txtQty").val();
+    let unitPrice=$("#orderItemPrice").val();
+
+    let order={
+      "orderId":orderId,
+      "date":date,
+      "customerId":customerId,
+      //"cartItems":JSON.stringify(cartItemsRow)
+      "cartItems":cartItemsRow
+    };
+
+    console.log(JSON.stringify(order));
+
+    $.ajax({
+      url:BASE_URL+"purchaseOrder",
+      method:"POST",
+      data:JSON.stringify(order),
+      contentType:"application/json",
+      headers: {
+        Auth: "user=admin,pass=admin"
+      },
+      setRequestHeader:"Access-Control-Allow-Origin",
+
+      success:function (resp){
+        alert(resp.message);
+      },
+      error:function (error){
+        //console.log(error);
+        alert(error.responseJSON.message);
+      }
+    });
+
+  });
 
 
+  function getItemDetails(){
+    let row=$("#tblCart").children.length;
+    var arry=[];
+
+    for (let i=0;i<row;i++){
+      let code=$("#tblCart").find("td:eq(0)").text();
+      let description=$("#tblCart").find("td:eq(1)").text();
+      let unitPrice=$("#tblCart").find("td:eq(2)").text();
+      let qty=$("#tblCart").find("td:eq(3)").text();
+      arry.push({code:code,description:description,unitPrice:unitPrice,qty:qty});
+    }
+    return arry;
+  }
 
 </script>
 </body>

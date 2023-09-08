@@ -1,6 +1,7 @@
 package lk.ijse.javaPos.layerd.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @authority DUSHAN MALINDA
@@ -10,6 +11,8 @@ public class OrdersDTO {
     private String date;
     private String cusId;
 
+    List<OrderDetailsDTO> orderDetails;
+
     public OrdersDTO() {
     }
 
@@ -17,6 +20,13 @@ public class OrdersDTO {
         this.ordId = ordId;
         this.date = date;
         this.cusId = cusId;
+    }
+
+    public OrdersDTO(String ordId, String date, String cusId, List<OrderDetailsDTO> orderDetails) {
+        this.ordId = ordId;
+        this.date = date;
+        this.cusId = cusId;
+        this.orderDetails = orderDetails;
     }
 
     public String getOrdId() {
@@ -43,12 +53,21 @@ public class OrdersDTO {
         this.cusId = cusId;
     }
 
+    public List<OrderDetailsDTO> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetailsDTO> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
     @Override
     public String toString() {
         return "OrdersDTO{" +
                 "ordId='" + ordId + '\'' +
                 ", date='" + date + '\'' +
                 ", cusId='" + cusId + '\'' +
+                ", orderDetails=" + orderDetails +
                 '}';
     }
 }

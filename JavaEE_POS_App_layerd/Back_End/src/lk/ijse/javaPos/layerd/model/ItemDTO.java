@@ -13,6 +13,8 @@ public class ItemDTO {
     public ItemDTO() {
     }
 
+
+
     public ItemDTO(String itemId, String description, double unitPrice, int qtyOnHand) {
         this.itemId = itemId;
         this.description = description;

@@ -71,4 +71,9 @@ public class CustomerDAOImpl implements CustomerDAO {
     public Customer search(String id,Connection connection) throws SQLException, ClassNotFoundException {
         return null;
     }
+
+    @Override
+    public boolean UpdateQty(Customer dto, Connection connection) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }

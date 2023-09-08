@@ -2,6 +2,7 @@ package lk.ijse.javaPos.layerd.bo;
 
 import lk.ijse.javaPos.layerd.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.javaPos.layerd.bo.custom.impl.ItemBOImpl;
+import lk.ijse.javaPos.layerd.bo.custom.impl.PurchaseBOImpl;
 
 /**
  * @authority DUSHAN MALINDA
@@ -21,7 +22,7 @@ public class Factory {
     }
 
     public enum BOType{
-        CUSTOMER,ITEM,ORDERS,ORDERDETAILS;
+        CUSTOMER,ITEM,ORDERS,PURCHASE;
     }
 
     public SuperBo getBO(BOType boType){
@@ -30,10 +31,8 @@ public class Factory {
                 return new CustomerBOImpl();
             case ITEM:
                 return new ItemBOImpl();
-          /*  case ORDERS:
-                return new OrdersBOImpl();
-            case ORDERDETAILS:
-                return new OrderDetailsBOImpl();*/
+            case PURCHASE:
+                return new PurchaseBOImpl();
         }
         return null;
     }
