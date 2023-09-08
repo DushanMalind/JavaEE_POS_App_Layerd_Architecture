@@ -30,7 +30,7 @@ public class PurchaseBOImpl implements PurchaseBO {
 
     @Override
     public boolean UpdateQty(ItemDTO dto, Connection connection) throws SQLException, ClassNotFoundException {
-       return itemDAO.update(new Item(dto.getItemId(),dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand()),connection);
+        return itemDAO.UpdateQty(new Item(dto.getItemId(),dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand()),connection);
     }
 
     /*@Override
@@ -63,17 +63,39 @@ public class PurchaseBOImpl implements PurchaseBO {
 
            }
 
-              ItemDTO itemDTO = new ItemDTO();
+          /*    ItemDTO itemDTO = new ItemDTO();
               for (OrderDetailsDTO d : dto.getOrderDetails()){
                 itemDTO.setItemId(d.getItemId());
                   itemDTO.setQtyOnHand(itemDTO.getQtyOnHand() - d.getQty());
-                    boolean isUpdated = itemDAO.update(new Item(itemDTO.getItemId(), itemDTO.getDescription(), itemDTO.getUnitPrice(), itemDTO.getQtyOnHand()),connection);
+                boolean isUpdated = itemDAO.UpdateQty(new Item(itemDTO.getItemId(),itemDTO.getDescription(),itemDTO.getUnitPrice(),itemDTO.getQtyOnHand()),connection);
                 if (!isUpdated){
                      connection.rollback();
                      connection.setAutoCommit(true);
                      return false;
                 }
+            }*/
+
+            ItemDTO itemDTO = new ItemDTO();
+            OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
+            for (OrderDetailsDTO d : dto.getOrderDetails()){
+                itemDTO.setItemId(d.getItemId());
+                itemDTO.setQtyOnHand(itemDTO.getQtyOnHand() - (d.getQty()));
+                boolean isUpdated = itemDAO.UpdateQty(new Item(itemDTO.getItemId(),itemDTO.getDescription(),itemDTO.getUnitPrice(),d.getQty()),connection);
+                if (!isUpdated){
+                    connection.rollback();
+                    connection.setAutoCommit(true);
+                    return false;
+                }
             }
+
+           /* ItemDTO itemdto=searchItem(dto.getOrderDetails().get(0).getItemId(),connection);
+            itemdto.setQtyOnHand(itemdto.getQtyOnHand()-dto.getOrderDetails().get(0).getQty());
+            boolean isUpdated = itemDAO.update(new Item(itemdto.getItemId(),itemdto.getDescription(),itemdto.getUnitPrice(),itemdto.getQtyOnHand()),connection);
+            if (!isUpdated){
+                connection.rollback();
+                connection.setAutoCommit(true);
+                return false;
+            }*/
 
             connection.commit();
             connection.setAutoCommit(true);
@@ -88,7 +110,11 @@ public class PurchaseBOImpl implements PurchaseBO {
         //return false;
     }
 
-
+    @Override
+    public ItemDTO searchItem(String id, Connection connection) throws SQLException, ClassNotFoundException {
+        Item item = itemDAO.search(id,connection);
+        return new ItemDTO(item.getItemId(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand());
+    }
 
 
 }

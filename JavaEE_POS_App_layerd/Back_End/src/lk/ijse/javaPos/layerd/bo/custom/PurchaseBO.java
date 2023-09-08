@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public interface PurchaseBO extends SuperBo {
     boolean purchaseOrder(OrdersDTO dto, Connection connection);
 
-   // ItemDTO searchItem(String id,Connection connection) throws SQLException, ClassNotFoundException;
+    ItemDTO searchItem(String id,Connection connection) throws SQLException, ClassNotFoundException;
 
     boolean UpdateQty(ItemDTO dto, Connection connection) throws SQLException, ClassNotFoundException;
 

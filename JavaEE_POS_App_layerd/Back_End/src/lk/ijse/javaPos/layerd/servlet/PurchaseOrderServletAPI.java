@@ -1,6 +1,7 @@
 package lk.ijse.javaPos.layerd.servlet;
 
 import lk.ijse.javaPos.layerd.bo.Factory;
+import lk.ijse.javaPos.layerd.bo.custom.ItemBO;
 import lk.ijse.javaPos.layerd.bo.custom.PurchaseBO;
 import lk.ijse.javaPos.layerd.model.ItemDTO;
 import lk.ijse.javaPos.layerd.model.OrderDetailsDTO;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 public class PurchaseOrderServletAPI extends HttpServlet {
 
     PurchaseBO purchaseBO = (PurchaseBO) Factory.getFactory().getBO(Factory.BOType.PURCHASE);
+
+    ItemBO itemBO = (ItemBO) Factory.getFactory().getBO(Factory.BOType.ITEM);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,6 +61,7 @@ public class PurchaseOrderServletAPI extends HttpServlet {
                 String itemId = cartItem.asJsonObject().getString("code");
                 String description = cartItem.asJsonObject().getString("description");
                 String unitPrice = cartItem.asJsonObject().getString("unitPrice");
+                String avQty=cartItem.asJsonObject().getString("qty");
                 String qty = cartItem.asJsonObject().getString("qty");
 
                 orderDetailsDTOS.add(new OrderDetailsDTO(orderId, itemId, Integer.parseInt(qty), Double.parseDouble(unitPrice)));
@@ -67,6 +71,10 @@ public class PurchaseOrderServletAPI extends HttpServlet {
             System.out.println(new OrdersDTO(orderId, orderDate, customerId,orderDetailsDTOS));
 
             boolean isAdded = purchaseBO.purchaseOrder(new OrdersDTO(orderId, orderDate, customerId,orderDetailsDTOS), connection);
+
+
+
+
 
 
 

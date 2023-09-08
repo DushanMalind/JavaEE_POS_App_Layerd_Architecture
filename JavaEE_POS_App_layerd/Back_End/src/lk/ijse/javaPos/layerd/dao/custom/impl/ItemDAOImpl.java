@@ -60,7 +60,7 @@ public class ItemDAOImpl implements ItemDAO {
     public boolean UpdateQty(Item dto, Connection connection) throws SQLException, ClassNotFoundException {
       //  return connection.createStatement().executeUpdate("UPDATE items SET qty=?'"+dto.getQtyOnHand()+"' WHERE id='"+dto.getItemId()+"'")>0;
         try {
-            String updateQuery = "UPDATE items SET qty = ? WHERE id = ?";
+            String updateQuery = "UPDATE items SET qty =qty - ? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
             preparedStatement.setInt(1, dto.getQtyOnHand()); // Assuming qty is an integer
             preparedStatement.setString(2, dto.getItemId()); // Assuming id is a string
